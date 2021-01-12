@@ -1,0 +1,118 @@
++-----------+---------------+----------------+-----------+-------------+------------+-------------------+-----------+------------------+
+| member_id | member_name   | member_address | dinner_id | dinner_date | venue_code | venue_description | food_code | food_description |
++-----------+---------------+----------------+-----------+-------------+------------+-------------------+-----------+------------------+
+|         1 | Amit          | 325 Max park   | D00001001 | 2020-03-15  | B01        | Grand Ball Room   | C1, C2    | Curry, Cake      |
+|         2 | Ben           | 24 Hudson lane | D00001002 | 2020-03-15  | B02        | Zoku Roof Top     | S1, C2    | Soup, Cake       |
+|         3 | Cristina      | 516 6th Ave    | D00001002 | 2020-03-15  | B02        | Zoku Roof Top     | S1, C2    | Soup, Cake       |
+|         4 | Dan           | 89 John St     | D00001003 | 2020-03-20  | B03        | Goat Farm         | P1, T1, M1| Pie, Tea, Mousse |
+|         5 | Ema           | 91 Pixar St    | D00001003 | 2020-03-20  | B03        | Goat Farm         | P1, T1, M1| Pie, Tea, Mousse |
+|         6 | Fatima        | 56 8th Ave     | D00001004 | 2020-03-20  | B04        | Mamas Kitchen     | F1, M1    | Falafal, Mousse  |
+|         7 | Gabor         | 54 Vivaldi St  | D00001005 | 2020-02-20  | B05        | Hungry Hungary    | G1, P2    | Goulash, Pasca   |
+|         8 | Hema          | 9 Peter St     | D00001003 | 2020-03-20  | B03        | Goat Farm         | P1, T1, M1| Pie, Tea, Mousse |
++-----------+---------------+----------------+-----------+-------------+------------+-------------------+-----------+------------------+
+
+
+1- What columns violate 1NF?
+They are 1- dinner_date because its attribute domain not same in all records.
+         2- food_code because it has multiple values.
+         3- food_description because it has multiple values.
+
+
+2- What entities do you recognize that could be extracted?
+    1-members
+    2-dinners
+    3-venues
+    4-food orders
+
+
+3- Name all the tables and columns that would make a 3NF compliant solution.
+
+## member table ##
++-----------+---------------+----------------+
+| member_id | member_name   | member_address |
++-----------+---------------+----------------+
+|         1 | Amit          | 325 Max park   |
+|         2 | Ben           | 24 Hudson lane |
+|         3 | Cristina      | 516 6th Ave    |
+|         4 | Dan           | 89 John St     |
+|         5 | Ema           | 91 Pixar St    |
+|         6 | Fatima        | 56 8th Ave     |
+|         7 | Gabor         | 54 Vivaldi St  |
+|         8 | Hema          | 9 Peter St     |
++-----------+---------------+----------------+
+
+## reservation table ##
++------------+-----------+-----------+
+| order_id   | member_id | dinner_id |
++------------+-----------+-----------+
+| O001       |         1 | D00001001 |
+| O002       |         2 | D00001002 |
+| O003       |         3 | D00001002 |
+| O004       |         4 | D00001003 |
+| O005       |         5 | D00001003 |
+| O006       |         6 | D00001004 |
+| O007       |         7 | D00001005 |
+| O008       |         8 | D00001003 |
++------------+-----------+-----------+
+
+## dinner table ##
++-----------+-------------+------------+
+| dinner_id | dinner_date | venue_code |
++-----------+-------------+------------+
+| D00001001 | 2020-03-15  | B01        |
+| D00001002 | 2020-03-15  | B02        |
+| D00001003 | 2020-03-20  | B03        |
+| D00001004 | 2020-03-20  | B04        |
+| D00001005 | 2020-02-20  | B05        |
++-----------+-------------+------------+
+
+## venue table ##
++------------+-------------------+
+| venue_code | venue_description |
++------------+-------------------+
+| B01        | Grand Ball Room   |
+| B02        | Zoku Roof Top     |
+| B03        | Goat Farm         |
+| B04        | Mamas Kitchen     |
+| B05        | Hungry Hungary    |
++------------+-------------------+
+
+## order table ##
++-----------+-----------+
+| order_id  | food_code |
++-----------+-----------+
+| O001      | C1        |
+| O001      | C2        |
+| O002      | S1        |
+| O002      | C2        |
+| O003      | S1        |
+| O003      | C2        |
+| O004      | P1        |
+| O004      | T1        |
+| O004      | M1        |
+| O005      | P1        |
+| O005      | T1        |
+| O005      | M1        |
+| O006      | F1        |
+| O006      | M1        |
+| O007      | G1        |
+| O007      | P2        |
+| O008      | P1        |
+| O008      | T1        |
+| O008      | M1        |
++-----------+-----------+
+
+## food table ##
++-----------+------------------+
+| food_code | food_description |
++-----------+------------------+
+| C1        | Curry            |
+| C2        | Cake             |
+| S1        | Soup             |
+| P1        | Pie              |
+| T1        | Tea              |
+| M1        | Mousse           |
+| F1        | Falafal          |
+| G1        | Goulash          |
+| P2        | Pasca            |
++-----------+------------------+

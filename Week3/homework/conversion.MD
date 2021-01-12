@@ -1,0 +1,1 @@
+I've created script (ex04-MongoDB-Convert.js) that take all the records in the tables (city, country, countrylanguage) from Mysql and migrate  it to MongoDB and store it in cloud mongoDB (Atlas).
