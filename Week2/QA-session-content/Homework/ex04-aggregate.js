@@ -28,7 +28,7 @@ FROM authors_research_papers r
 WHERE gender = 'female';
 `,
 
-//3- Sum of the research papers published by all female authors.
+//3- Average of the h-index of all authors per university.
 `
 SELECT university, AVG(h_index) AS university_average
 FROM authors
@@ -37,7 +37,7 @@ GROUP BY university;
 
 //4- Sum of the research papers of the authors per university.
 `
-SELECT university, COUNT(r.author_no) AS number_of_papers
+SELECT university, COUNT(*) AS number_of_papers
 FROM authors a
     JOIN authors_research_papers r
         ON a.author_no = r.author_no
